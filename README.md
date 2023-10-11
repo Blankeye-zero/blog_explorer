@@ -1,16 +1,12 @@
 # blog_explorer
 
-A new Flutter project.
+### Running Instructions
 
-## Getting Started
+- Kindly follow this link [Setting up Android Emulator](https://www.geeksforgeeks.org/how-to-run-a-flutter-app-on-android-emulator/) to setup an emulator on your computer or
+  connect a real device to your computer via USB Debugging and enable it for debugging by turning on developer options.
 
-This project is a starting point for a Flutter application.
+- Follow this link for installing flutter on your system. [Setup Flutter](https://docs.flutter.dev/get-started/install)
 
-A few resources to get you started if this is your first Flutter project:
+- clone this git repository using `git clone` and `cd` into the working directory.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Now run the android VM if you have setup your emulator and run the flutter app using the `flutter run` command
