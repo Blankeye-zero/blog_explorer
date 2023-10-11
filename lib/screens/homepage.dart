@@ -31,13 +31,13 @@ class _HomePageState extends State<HomePage> {
       if (kDebugMode) {
         print(error);
       }
+      ScaffoldMessenger.of(_scaffoldKey.currentContext!).showSnackBar(const SnackBar(content: Text('NETW; There is an error while fetching Data. Kindly try again later')));
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    BlogCubit blogCubit = BlocProvider.of<BlogCubit>(context);
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _scaffoldKey,
@@ -45,33 +45,39 @@ class _HomePageState extends State<HomePage> {
       drawer: CustomDrawer(scaffoldKey: _scaffoldKey, screenHeight: height),
       body: Container(
         color: Colors.black,
-        child: circularIndicator
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                addAutomaticKeepAlives: true,
-                cacheExtent: 10,
-                itemBuilder: (context, index) {
-                  BlogModel blog = blogCubit.state.blogList[index];
-                  final height = MediaQuery.of(context).size.height;
-                  return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BlogDetail(blog: blog),
-                            ));
-                      },
-                      child: CardElement(
-                        height: height,
-                        blog: blog,
-                        remove: false,
-                        icon: 'download',
-                      ));
-                },
-                itemCount: blogCubit.state.blogList.length,
-              ),
+        child: BlocBuilder<BlogCubit, BlogState>(
+          builder: (context, state) {
+            if(circularIndicator){
+              return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+            } else {
+              return ListView.builder(
+                    addAutomaticKeepAlives: true,
+                    cacheExtent: 10,
+                    itemBuilder: (context, index) {
+                      BlogModel blog = state.blogList[index];
+                      final height = MediaQuery.of(context).size.height;
+                      return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BlogDetail(blog: blog),
+                                ));
+                          },
+                          child: CardElement(
+                            height: height,
+                            blog: blog,
+                            remove: false,
+                            icon: 'download',
+                          ));
+                    },
+                    itemCount: state.blogList.length,
+                  ); 
+            }
+          }
+        ),
       ),
     );
   }
