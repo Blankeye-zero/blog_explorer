@@ -31,7 +31,10 @@ class _HomePageState extends State<HomePage> {
       if (kDebugMode) {
         print(error);
       }
-      ScaffoldMessenger.of(_scaffoldKey.currentContext!).showSnackBar(const SnackBar(content: Text('NETW; There is an error while fetching Data. Kindly try again later')));
+      ScaffoldMessenger.of(_scaffoldKey.currentContext!).showSnackBar(const SnackBar(content: Text('CODE:NETW; There is an error while fetching Data. Kindly try again later')));
+      setState(() {
+        circularIndicator = false;
+      });
     });
     super.initState();
   }
