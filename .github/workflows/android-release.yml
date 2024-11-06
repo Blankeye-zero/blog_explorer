@@ -34,6 +34,9 @@ jobs:
           version: ${{ steps.previoustag.outputs.tag }}
           strict: true  # Enforce strict versioning rules
 
+      - name: Debug - Print outputs
+        run: echo "Next minor version: ${{ steps.semver.outputs.next_minor }}"
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
