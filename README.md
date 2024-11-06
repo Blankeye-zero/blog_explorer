@@ -1,4 +1,4 @@
-# blog_explorer
+## blog_explorer
 
 ### Running Instructions
 
