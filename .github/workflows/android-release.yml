@@ -35,7 +35,8 @@ jobs:
           strict: true  # Enforce strict versioning rules
 
       - name: Debug - Print outputs
-        run: echo "Next minor version: ${{ steps.semver.outputs.next_minor }}"
+        run: |
+          echo "Next minor version: ${{ steps.semver.outputs.next_minor }}"
 
       - name: Create Release
         id: create_release
