@@ -25,13 +25,14 @@ jobs:
         id: previoustag
         uses: 'WyriHaximus/github-action-get-previous-tag@v1'
         with:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          fallback: '0.0.0'  # Use a default version if no previous tag is found
 
       - name: Get next minor version
         id: semver
         uses: 'WyriHaximus/github-action-next-semvers@v1'
         with:
-          from: ${{ steps.previoustag.outputs.tag }}
+          version: ${{ steps.previoustag.outputs.tag }}
+          strict: true  # Enforce strict versioning rules
 
       - name: Create Release
         id: create_release
@@ -46,8 +47,6 @@ jobs:
 
       - name: Upload APK to GitHub Releases
         uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/app/outputs/flutter-apk/app-release.apk
