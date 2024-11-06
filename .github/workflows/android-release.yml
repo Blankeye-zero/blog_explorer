@@ -24,14 +24,14 @@ jobs:
       - name: Get previous tag
         id: previoustag
         uses: 'WyriHaximus/github-action-get-previous-tag@v1'
-        env:
-          version: ${{ secrets.MY_GITHUB_TOKEN }}
-      
-      - name:  Get next minor version
+        with:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+
+      - name: Get next minor version
         id: semver
         uses: 'WyriHaximus/github-action-next-semvers@v1'
         with:
-          version: ${{ steps.previoustag.outputs.tag }}
+          from: ${{ steps.previoustag.outputs.tag }}
 
       - name: Create Release
         id: create_release
@@ -39,8 +39,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.semver.outputs.patch }}
-          release_name: Release ${{ steps.semver.outputs.patch }}
+          tag_name: ${{ steps.semver.outputs.next_minor }}
+          release_name: Release ${{ steps.semver.outputs.next_minor }}
           draft: false
           prerelease: false
 
@@ -53,4 +53,3 @@ jobs:
           asset_path: build/app/outputs/flutter-apk/app-release.apk
           asset_name: app-release.apk
           asset_content_type: application/vnd.android.package-archive
-
